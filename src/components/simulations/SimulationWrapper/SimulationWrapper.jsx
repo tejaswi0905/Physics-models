@@ -8,8 +8,8 @@ import './SimulationWrapper.css';
 const SimulationWrapper = ({ 
   title, 
   description, 
-  canvasComponent: Canvas, 
-  controlsComponent: Controls, 
+  canvas, 
+  controls, 
   onReset 
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -65,7 +65,7 @@ const SimulationWrapper = ({
       <div className="sim-layout">
         {/* Canvas Area */}
         <div className="sim-canvas-area glass-panel">
-          <Canvas />
+          {canvas}
         </div>
         
         {/* Controls Sidebar */}
@@ -80,7 +80,7 @@ const SimulationWrapper = ({
             </Button>
           </div>
           <div className="controls-content">
-            <Controls />
+            {controls}
           </div>
         </Card>
       </div>

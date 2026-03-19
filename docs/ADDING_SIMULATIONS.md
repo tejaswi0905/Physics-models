@@ -42,8 +42,8 @@ const BouncingBalls = () => {
       <SimulationWrapper 
         title="Bouncing Balls"
         description="A 2D kinematic collision engine."
-        canvasComponent={() => <BouncingBallsCanvas params={params} />}
-        controlsComponent={() => <BouncingBallsControls params={params} updateParam={updateParam} />}
+        canvas={<BouncingBallsCanvas params={params} />}
+        controls={<BouncingBallsControls params={params} updateParam={updateParam} />}
         onReset={resetParams}
       />
     </Layout>

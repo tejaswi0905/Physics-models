@@ -19,9 +19,9 @@ const SimplePendulum = () => {
     <Layout>
       <SimulationWrapper 
         title="Simple Pendulum"
-        description="A mathematically rigorous model of a simple pendulum. Adjust length, gravity, and mass to see how they affect the period and kinetic energy of the system."
-        canvasComponent={() => <SimplePendulumCanvas params={params} />}
-        controlsComponent={() => <SimplePendulumControls params={params} updateParam={updateParam} />}
+        description="A mathematically rigorous 2D pendulum utilizing Euler integration and exact frame-independent time steps."
+        canvas={<SimplePendulumCanvas params={params} />}
+        controls={<SimplePendulumControls params={params} updateParam={updateParam} />}
         onReset={resetParams}
       />
     </Layout>

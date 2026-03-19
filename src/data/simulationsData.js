@@ -30,5 +30,13 @@ export const simulationsData = [
   tags: ['Kinematics', 'Optimization', 'Data Structures'],
   path: '/simulations/elastic-collisions',
   image: 'https://images.unsplash.com/photo-1518182170546-076616fdcefd?w=600&q=80',
+},
+{
+  id: 'falling-sand',
+  title: 'Granular Physics (Falling Sand)',
+  description: 'A cellular automata physics engine simulating granular materials and fluid dynamics.',
+  tags: ['Cellular Automata', 'Particle System', 'Grid Math'],
+  path: '/simulations/falling-sand',
+  image: 'https://images.unsplash.com/photo-1518001878477-8ea0b980e1ab?w=600&q=80',
 }
 ];

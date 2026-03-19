@@ -2,6 +2,12 @@ import React, { useRef, useState, useEffect } from 'react';
 import { P5Canvas } from '@p5-wrapper/react';
 import { Particle, QuadTree, Rectangle, Point, Circle } from './logic';
 
+const sharedState = {
+  numBalls: 10,
+  canvasWidth: 0,
+  canvasHeight: 0
+};
+
 const sketch = (p5) => {
   let numBalls = 10;
   let particles = [];
@@ -24,30 +30,20 @@ const sketch = (p5) => {
     initUniverse(numBalls);
   };
 
-  p5.updateWithProps = (props) => {
-    // 1. Safely handle geometry updates
-    if (props.width && props.height && p5.canvas) {
-      if (p5.width !== props.width || p5.height !== props.height) {
-        p5.resizeCanvas(props.width, props.height);
-      }
-    }
-
-    // 2. Safely handle React state (slider) updates
-    if (props.params && props.params.numBalls !== undefined) {
-      // Force strict type to prevent string comparison bugs
-      const incomingCount = Number(props.params.numBalls);
-      
-      if (incomingCount !== numBalls) {
-        numBalls = incomingCount;
-        // THE FIX: Strictly ensure canvas context exists before running math
-        if (p5.canvas && p5.width > 0) {
-          initUniverse(numBalls);
-        }
-      }
-    }
-  };
-
   p5.draw = () => {
+    if (sharedState.canvasWidth > 0 && sharedState.canvasHeight > 0) {
+      if (p5.width !== sharedState.canvasWidth || p5.height !== sharedState.canvasHeight) {
+        p5.resizeCanvas(sharedState.canvasWidth, sharedState.canvasHeight);
+      }
+    }
+
+    if (numBalls !== sharedState.numBalls) {
+      numBalls = sharedState.numBalls;
+      if (p5.canvas && p5.width > 0) {
+        initUniverse(numBalls);
+      }
+    }
+
     p5.background('#0a0a0c');
 
     let boundary = new Rectangle(p5.width / 2, p5.height / 2, p5.width, p5.height);
@@ -86,30 +82,35 @@ const sketch = (p5) => {
 
 const ElasticCollisionsCanvas = ({ params }) => {
   const containerRef = useRef(null);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [hasDimensions, setHasDimensions] = useState(false);
+
+  if (params && params.numBalls !== undefined) {
+    sharedState.numBalls = Number(params.numBalls);
+  }
 
   useEffect(() => {
     const observer = new ResizeObserver((entries) => {
       for (let entry of entries) {
-        // THE FIX: Floor the dimensions to prevent sub-pixel infinite loop resizing
         const width = Math.floor(entry.contentRect.width);
         const height = Math.floor(entry.contentRect.height);
         
         if (width > 0 && height > 0) {
-          setDimensions({ width, height });
+          sharedState.canvasWidth = width;
+          sharedState.canvasHeight = height;
+          if (!hasDimensions) setHasDimensions(true);
         }
       }
     });
 
     if (containerRef.current) observer.observe(containerRef.current);
     return () => observer.disconnect();
-  }, []);
+  }, [hasDimensions]);
 
   return (
     <div ref={containerRef} style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', borderRadius: '12px' }}>
-      {dimensions.width > 0 && (
+      {hasDimensions && (
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
-          <P5Canvas sketch={sketch} params={params} width={dimensions.width} height={dimensions.height} />
+          <P5Canvas sketch={sketch} />
         </div>
       )}
     </div>

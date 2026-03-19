@@ -6,39 +6,52 @@ const Navbar = () => {
   const location = useLocation();
   const isHome = location.pathname === '/';
   
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isForcedOpen, setIsForcedOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY && currentScrollY > 80) {
-        setIsVisible(false);
+      if (window.scrollY > 80) {
+        setIsScrolled(true);
       } else {
-        setIsVisible(true);
+        setIsScrolled(false);
+        setIsForcedOpen(false); // auto-hide reset at top
       }
-      setLastScrollY(currentScrollY);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  }, []);
+
+  const showNavbar = !isScrolled || isForcedOpen;
 
   return (
-    <nav className={`navbar glass-panel ${!isVisible ? 'navbar-hidden' : ''}`}>
-      <div className="container nav-container">
-        <Link to="/" className="nav-brand">
-          <span className="text-gradient font-display logo-text">PhysicsModels</span>
-        </Link>
-        <div className="nav-links">
-          <Link to="/" className={`nav-link ${isHome ? 'active' : ''}`}>Home</Link>
-          <Link to="/simulations" className={`nav-link ${!isHome ? 'active' : ''}`}>Simulations</Link>
-          <a href="https://github.com/tejaswi0905/Physics-models" target="_blank" rel="noopener noreferrer" className="nav-link">
-            GitHub
-          </a>
+    <>
+      <button 
+        className={`nav-toggle-btn ${!showNavbar ? 'visible' : ''}`}
+        onClick={() => setIsForcedOpen(true)}
+        aria-label="Show Navigation"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      <nav className={`navbar glass-panel ${showNavbar ? 'navbar-visible' : 'navbar-hidden'}`}>
+        <div className="container nav-container">
+          <Link to="/" className="nav-brand">
+            <span className="text-gradient font-display logo-text">PhysicsModels</span>
+          </Link>
+          <div className="nav-links">
+            <Link to="/" className={`nav-link ${isHome ? 'active' : ''}`}>Home</Link>
+            <Link to="/simulations" className={`nav-link ${!isHome ? 'active' : ''}`}>Simulations</Link>
+            <a href="https://github.com/tejaswi0905/Physics-models" target="_blank" rel="noopener noreferrer" className="nav-link">
+              GitHub
+            </a>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 };
 

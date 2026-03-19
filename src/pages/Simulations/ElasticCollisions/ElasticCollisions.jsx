@@ -17,8 +17,8 @@ const ElasticCollisions = () => {
       <SimulationWrapper 
         title="Elastic Collisions"
         description="A 2D kinematic engine optimized by a Quadtree spatial partitioning structure."
-        canvasComponent={() => <ElasticCollisionsCanvas params={params} />}
-        controlsComponent={() => <ElasticCollisionsControls params={params} updateParam={updateParam} />}
+        canvas={<ElasticCollisionsCanvas params={params} />}
+        controls={<ElasticCollisionsControls params={params} updateParam={updateParam} />}
         onReset={resetParams}
       />
     </Layout>
