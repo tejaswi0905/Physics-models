@@ -2,6 +2,8 @@ import React from 'react';
 import './Slider.css';
 
 const Slider = ({ label, min, max, step, value, onChange, unit = '' }) => {
+  const percentage = ((value - min) / (max - min)) * 100;
+
   return (
     <div className="slider-container">
       <div className="slider-header">
@@ -16,6 +18,7 @@ const Slider = ({ label, min, max, step, value, onChange, unit = '' }) => {
         step={step} 
         value={value} 
         onChange={(e) => onChange(Number(e.target.value))}
+        style={{ '--progress': `${percentage}%` }}
       />
     </div>
   );
