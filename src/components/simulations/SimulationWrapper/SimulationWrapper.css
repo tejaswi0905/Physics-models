@@ -1,0 +1,100 @@
+.sim-wrapper-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 6rem 1rem 2rem;
+}
+
+.sim-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.sim-title {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.sim-description {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  max-width: 800px;
+}
+
+.sim-layout {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+@media (max-width: 1024px) {
+  .sim-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sim-canvas-area {
+  aspect-ratio: 16/9;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--bg-primary); /* Overriding glass-panel background slightly */
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+/* Make react-p5 wrapper responsive inside */
+.sim-canvas-area > div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sim-controls-sidebar {
+  position: sticky;
+  top: 6rem;
+}
+
+.controls-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.controls-header h3 {
+  font-size: 1.25rem;
+  color: var(--text-primary);
+}
+
+.reset-btn {
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--text-secondary);
+}
+
+.reset-btn:hover {
+  color: var(--text-primary);
+  transform: rotate(-45deg);
+  background: transparent !important;
+}
+
+.controls-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

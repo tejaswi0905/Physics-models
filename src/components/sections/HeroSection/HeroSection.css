@@ -1,0 +1,107 @@
+.hero {
+  min-height: calc(100vh - var(--nav-height) - 4rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  padding: 4rem 1rem;
+}
+
+.hero-content {
+  max-width: 800px;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: slideUp var(--transition-slow);
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.hero-badge .bullet {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-primary);
+}
+
+.hero-title {
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  margin-bottom: 1.5rem;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.1rem, 2vw, 1.25rem);
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 3rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-secondary-link {
+  text-decoration: none;
+}
+
+/* Float Animations for Decor */
+.hero-decor {
+  position: absolute;
+  border-radius: 50%;
+  animation: float 20s infinite ease-in-out;
+  z-index: 1;
+}
+
+.decor-1 {
+  width: 300px;
+  height: 300px;
+  top: 10%;
+  left: 10%;
+  background: radial-gradient(circle at center, rgba(139, 92, 246, 0.1), transparent 70%);
+  animation-delay: -5s;
+}
+
+.decor-2 {
+  width: 400px;
+  height: 400px;
+  bottom: 0;
+  right: 5%;
+  background: radial-gradient(circle at center, rgba(217, 70, 239, 0.08), transparent 70%);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-50px) scale(1.05);
+  }
+}
