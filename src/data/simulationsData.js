@@ -38,5 +38,13 @@ export const simulationsData = [
   tags: ['Cellular Automata', 'Particle System', 'Grid Math'],
   path: '/simulations/falling-sand',
   image: 'https://images.unsplash.com/photo-1518001878477-8ea0b980e1ab?w=600&q=80',
+},
+{
+  id: 'simple-spring',
+  title: 'Harmonic Oscillator (Spring)',
+  description: 'An interactive system demonstrating Hooke\'s Law, damped harmonic motion, and elastic potential energy.',
+  tags: ['Dynamics', 'Harmonic Motion', 'Hooke\'s Law'],
+  path: '/simulations/simple-spring',
+  image: 'https://images.unsplash.com/photo-1633526543814-9718c8922b7a?w=600&q=80',
 }
 ];

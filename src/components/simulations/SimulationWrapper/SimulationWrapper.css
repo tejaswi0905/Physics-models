@@ -1,11 +1,13 @@
 .sim-wrapper-container {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   width: 100%;
-  max-width: 1400px;
+  max-width: 1600px;
+  height: 100vh; /* Strict absolute viewport fit */
   margin: 0 auto;
-  padding: 6rem 1rem 2rem;
+  padding: 4.5rem 1.5rem 1.5rem; /* Tighter against Header */
+  overflow: hidden; /* Absolutely prevents page scrolling */
 }
 
 .sim-header {
@@ -13,12 +15,25 @@
   justify-content: space-between;
   align-items: flex-end;
   position: relative;
+  flex-shrink: 0;
+  margin-bottom: 0.25rem;
+}
+
+.sim-title {
+  font-size: 2.25rem; /* slightly smaller to save space */
+  margin-bottom: 0.25rem;
+}
+
+.sim-description {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  max-width: 800px;
 }
 
 .sim-switcher {
   position: relative;
   align-self: flex-start;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .dots-btn {
@@ -96,38 +111,44 @@
   }
 }
 
-.sim-title {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.sim-description {
-  color: var(--text-secondary);
-  font-size: 1.1rem;
-  max-width: 800px;
-}
-
 .sim-layout {
   display: grid;
-  grid-template-columns: 1fr 350px;
+  grid-template-columns: 1fr 340px; /* Slight squeeze */
   gap: 1.5rem;
-  align-items: flex-start;
+  align-items: stretch;
+  flex-grow: 1;
+  min-height: 0; 
 }
 
 @media (max-width: 1024px) {
+  .sim-wrapper-container {
+    height: auto;
+    overflow: visible; /* Restore scrolling on mobile */
+    padding-top: 5rem;
+  }
   .sim-layout {
     grid-template-columns: 1fr;
+    flex-grow: 0;
+    height: auto;
+  }
+  .sim-canvas-area {
+    aspect-ratio: 1/1;
+    height: auto !important;
+  }
+  .sim-controls-sidebar {
+    height: auto !important;
   }
 }
 
 .sim-canvas-area {
-  aspect-ratio: 16/9;
   width: 100%;
+  height: 100%;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: var(--bg-primary); /* Overriding glass-panel background slightly */
+  background: var(--bg-primary); 
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
   position: relative;
 }
@@ -142,16 +163,17 @@
 }
 
 .sim-controls-sidebar {
-  position: sticky;
-  top: 6rem;
+  height: 100%;
+  overflow-y: auto;
+  padding: 1.5rem !important; /* Force tight fit padding */
 }
 
 .controls-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--glass-border);
 }
 
@@ -179,4 +201,13 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.controls-instruction {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--glass-border);
 }

@@ -3,8 +3,12 @@ import Slider from '../../../components/ui/Slider/Slider';
 
 const SimplePendulumControls = ({ params, updateParam }) => {
   return (
-    <div className="flex flex-col gap-4">
-      <Slider 
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+    <p className="controls-instruction">
+      <strong>Interactive:</strong> Drag the purple bob to change the starting angle.<br/><br/>
+      Adjust the sliders below to explore how string length, gravity, and mass alter the swing period and air resistance.
+    </p>
+    <Slider 
         label="Length" 
         min={50} max={350} step={1} 
         value={params.length} 

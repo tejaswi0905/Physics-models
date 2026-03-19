@@ -4,7 +4,11 @@ import Simulations from './pages/Simulations/Simulations';
 import SimplePendulum from './pages/Simulations/SimplePendulum/SimplePendulum';
 import ElasticCollisions from './pages/Simulations/ElasticCollisions/ElasticCollisions';
 import FallingSand from './pages/Simulations/FallingSand/FallingSand';
+import SimpleSpring from './pages/Simulations/SimpleSpring/SimpleSpring';
 import './App.css';
+
+
+
 
 function App() {
   return (
@@ -15,6 +19,7 @@ function App() {
         <Route path="/simulations/simple-pendulum" element={<SimplePendulum />} />
         <Route path="/simulations/elastic-collisions" element={<ElasticCollisions />} />
         <Route path="/simulations/falling-sand" element={<FallingSand />} />
+        <Route path="/simulations/simple-spring" element={<SimpleSpring />} />
       </Routes>
     </Router>
   );

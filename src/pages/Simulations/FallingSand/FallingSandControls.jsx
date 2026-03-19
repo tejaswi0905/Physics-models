@@ -4,6 +4,10 @@ import Slider from '../../../components/ui/Slider/Slider';
 const FallingSandControls = ({ params, updateParam }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <p className="controls-instruction">
+        <strong>Interactive:</strong> Click and drag anywhere on the canvas to paint sand.<br/><br/>
+        Adjust the brush size and toggle standard gravity to see how the Cellular Automata math naturally handles particle stacking and avalanches.
+      </p>
       <Slider 
         label="Sand Volume (Brush Size)" 
         min={1} 

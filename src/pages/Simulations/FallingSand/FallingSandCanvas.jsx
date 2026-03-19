@@ -71,15 +71,18 @@ const sketch = (p5) => {
   };
 
   p5.draw = () => {
-    // 0. Manual Reactive Resize
+    // 0. Manual Reactive Resize with strict deadzone to prevent infinite layout oscillation loops
     if (sharedState.canvasWidth > 0 && sharedState.canvasHeight > 0) {
-      if (p5.width !== sharedState.canvasWidth || p5.height !== sharedState.canvasHeight) {
+      if (Math.abs(p5.width - sharedState.canvasWidth) >= 2 || Math.abs(p5.height - sharedState.canvasHeight) >= 2) {
         p5.resizeCanvas(sharedState.canvasWidth, sharedState.canvasHeight);
         let newCols = p5.ceil(p5.width / w);
         let newRows = p5.ceil(p5.height / w);
         if (newCols !== cols || newRows !== rows) {
           resizeGrids(newCols, newRows);
         }
+        // Cement the matching dimensions to prevent fractional rebounce
+        sharedState.canvasWidth = p5.width;
+        sharedState.canvasHeight = p5.height;
       }
     }
 
@@ -161,7 +164,10 @@ const sketch = (p5) => {
 
           if (!moved) {
             nextGrid[i][j] = state;
-            nextVelocityGrid[i][j] = velocityGrid[i][j] + gravity;
+            // CRITICAL FIX: Terminal velocity of resting sand must be reset to 1!
+            // If it is 0, the next frame's loop will never check the space below it, causing flying/stuck sand.
+            // If we cap it at 1, it checks exactly 1 block beneath itself forever without infinite CPU scaling.
+            nextVelocityGrid[i][j] = 1;
           }
         }
       }

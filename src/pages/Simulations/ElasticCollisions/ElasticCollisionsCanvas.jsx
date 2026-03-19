@@ -32,8 +32,10 @@ const sketch = (p5) => {
 
   p5.draw = () => {
     if (sharedState.canvasWidth > 0 && sharedState.canvasHeight > 0) {
-      if (p5.width !== sharedState.canvasWidth || p5.height !== sharedState.canvasHeight) {
+      if (Math.abs(p5.width - sharedState.canvasWidth) >= 2 || Math.abs(p5.height - sharedState.canvasHeight) >= 2) {
         p5.resizeCanvas(sharedState.canvasWidth, sharedState.canvasHeight);
+        sharedState.canvasWidth = p5.width;
+        sharedState.canvasHeight = p5.height;
       }
     }
 
