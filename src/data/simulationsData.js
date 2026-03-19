@@ -22,5 +22,13 @@ export const simulationsData = [
     tags: ['Chaos Theory', 'Advanced Mechanics'],
     path: '/simulations/double-pendulum',
     image: 'https://images.unsplash.com/photo-1633519391054-0ebc5c9af7e6?w=600&q=80', // Beautiful placeholder
-  }
+  },
+  {
+  id: 'elastic-collisions',
+  title: 'Elastic Collisions',
+  description: 'Quadtree-optimized kinetic energy conservation.',
+  tags: ['Kinematics', 'Optimization', 'Data Structures'],
+  path: '/simulations/elastic-collisions',
+  image: 'https://images.unsplash.com/photo-1518182170546-076616fdcefd?w=600&q=80',
+}
 ];

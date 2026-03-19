@@ -1,0 +1,119 @@
+import React, { useRef, useState, useEffect } from 'react';
+import { P5Canvas } from '@p5-wrapper/react';
+import { Particle, QuadTree, Rectangle, Point, Circle } from './logic';
+
+const sketch = (p5) => {
+  let numBalls = 10;
+  let particles = [];
+  const PALETTE = ['#0B6A88', '#2DC5F4', '#70327E', '#9253A1', '#A42963', '#EC015A', '#F063A4', '#F89E4F', '#FCEE21'];
+
+  const initUniverse = (count) => {
+    particles = [];
+    for (let i = 0; i < count; i++) {
+      const x = p5.random(50, Math.max(p5.width - 50, 100));
+      const y = p5.random(50, Math.max(p5.height - 50, 100));
+      const mass = p5.random(4, 8);
+      const color = p5.random(PALETTE);
+      particles.push(new Particle(x, y, mass, i, color));
+    }
+  };
+
+  p5.setup = () => {
+    p5.createCanvas(800, 600);
+    p5.canvas.style.display = 'block'; 
+    initUniverse(numBalls);
+  };
+
+  p5.updateWithProps = (props) => {
+    // 1. Safely handle geometry updates
+    if (props.width && props.height && p5.canvas) {
+      if (p5.width !== props.width || p5.height !== props.height) {
+        p5.resizeCanvas(props.width, props.height);
+      }
+    }
+
+    // 2. Safely handle React state (slider) updates
+    if (props.params && props.params.numBalls !== undefined) {
+      // Force strict type to prevent string comparison bugs
+      const incomingCount = Number(props.params.numBalls);
+      
+      if (incomingCount !== numBalls) {
+        numBalls = incomingCount;
+        // THE FIX: Strictly ensure canvas context exists before running math
+        if (p5.canvas && p5.width > 0) {
+          initUniverse(numBalls);
+        }
+      }
+    }
+  };
+
+  p5.draw = () => {
+    p5.background('#0a0a0c');
+
+    let boundary = new Rectangle(p5.width / 2, p5.height / 2, p5.width, p5.height);
+    let qtree = new QuadTree(boundary, 4);
+    let checkedPairs = new Set();
+
+    for (let p of particles) {
+      qtree.insert(new Point(p.x, p.y, p));
+    }
+
+    for (let i = 0; i < particles.length; i++) {
+      let pA = particles[i];
+      let range = new Circle(pA.x, pA.y, pA.r * 2);
+      let points = qtree.query(range);
+
+      for (let pt of points) {
+        let pB = pt.userData;
+        if (pB !== pA) {
+          let pairId = pA.id < pB.id ? `${pA.id}-${pB.id}` : `${pB.id}-${pA.id}`;
+          if (!checkedPairs.has(pairId)) {
+            pA.collide(pB);
+            checkedPairs.add(pairId);
+          }
+        }
+      }
+    }
+
+    p5.noStroke();
+    for (let p of particles) {
+      p.update(p5.width, p5.height);
+      p5.fill(p.color);
+      p5.circle(p.x, p.y, p.r * 2);
+    }
+  };
+};
+
+const ElasticCollisionsCanvas = ({ params }) => {
+  const containerRef = useRef(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    const observer = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        // THE FIX: Floor the dimensions to prevent sub-pixel infinite loop resizing
+        const width = Math.floor(entry.contentRect.width);
+        const height = Math.floor(entry.contentRect.height);
+        
+        if (width > 0 && height > 0) {
+          setDimensions({ width, height });
+        }
+      }
+    });
+
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={containerRef} style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', borderRadius: '12px' }}>
+      {dimensions.width > 0 && (
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+          <P5Canvas sketch={sketch} params={params} width={dimensions.width} height={dimensions.height} />
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ElasticCollisionsCanvas;
