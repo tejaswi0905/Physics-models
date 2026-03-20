@@ -46,5 +46,13 @@ export const simulationsData = [
   tags: ['Dynamics', 'Harmonic Motion', 'Hooke\'s Law'],
   path: '/simulations/simple-spring',
   image: 'https://images.unsplash.com/photo-1633526543814-9718c8922b7a?w=600&q=80',
+},
+{
+  id: 'convex-hull',
+  title: 'Convex Hull (Gift Wrapping)',
+  description: 'Visualizing the Jarvis March algorithm to compute the convex hull of a 2D point cloud.',
+  tags: ['Algorithms', 'Computational Geometry', 'Math'],
+  path: '/simulations/convex-hull',
+  image: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=600&q=80',
 }
 ];

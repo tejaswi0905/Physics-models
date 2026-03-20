@@ -5,6 +5,8 @@ import SimplePendulum from './pages/Simulations/SimplePendulum/SimplePendulum';
 import ElasticCollisions from './pages/Simulations/ElasticCollisions/ElasticCollisions';
 import FallingSand from './pages/Simulations/FallingSand/FallingSand';
 import SimpleSpring from './pages/Simulations/SimpleSpring/SimpleSpring';
+import ConvexHull from './pages/Simulations/ConvexHull/ConvexHull';
+
 import './App.css';
 
 
@@ -20,6 +22,7 @@ function App() {
         <Route path="/simulations/elastic-collisions" element={<ElasticCollisions />} />
         <Route path="/simulations/falling-sand" element={<FallingSand />} />
         <Route path="/simulations/simple-spring" element={<SimpleSpring />} />
+        <Route path="/simulations/convex-hull" element={<ConvexHull />} />
       </Routes>
     </Router>
   );
