@@ -12,6 +12,7 @@ const sharedState = {
 };
 
 const sketch = (p5) => {
+  p5.disableFriendlyErrors = true; // Optimize performance and stop background memory leaks
   let anchorX = 0, anchorY = 0;
   let bobX = 0, bobY = 0;
   let vx = 0, vy = 0;
@@ -29,6 +30,11 @@ const sketch = (p5) => {
   };
 
   p5.draw = () => {
+    if (sharedState.unmounted) {
+      p5.noLoop();
+      return;
+    }
+
     if (sharedState.canvasWidth > 0 && sharedState.canvasHeight > 0) {
       if (Math.abs(p5.width - sharedState.canvasWidth) >= 2 || Math.abs(p5.height - sharedState.canvasHeight) >= 2) {
         p5.resizeCanvas(sharedState.canvasWidth, sharedState.canvasHeight);
@@ -123,6 +129,8 @@ const SimpleSpringCanvas = ({ params }) => {
   }
 
   useEffect(() => {
+    sharedState.unmounted = false;
+
     const observer = new ResizeObserver((entries) => {
       for (let entry of entries) {
         const width = Math.floor(entry.contentRect.width);
@@ -136,7 +144,10 @@ const SimpleSpringCanvas = ({ params }) => {
     });
 
     if (containerRef.current) observer.observe(containerRef.current);
-    return () => observer.disconnect();
+    return () => {
+      sharedState.unmounted = true;
+      observer.disconnect();
+    };
   }, [hasDimensions]);
 
   return (

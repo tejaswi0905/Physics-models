@@ -6,6 +6,8 @@ import ElasticCollisions from './pages/Simulations/ElasticCollisions/ElasticColl
 import FallingSand from './pages/Simulations/FallingSand/FallingSand';
 import SimpleSpring from './pages/Simulations/SimpleSpring/SimpleSpring';
 import ConvexHull from './pages/Simulations/ConvexHull/ConvexHull';
+import RayCasting from './pages/Simulations/RayCasting/RayCasting';
+
 
 import './App.css';
 
@@ -23,6 +25,7 @@ function App() {
         <Route path="/simulations/falling-sand" element={<FallingSand />} />
         <Route path="/simulations/simple-spring" element={<SimpleSpring />} />
         <Route path="/simulations/convex-hull" element={<ConvexHull />} />
+        <Route path="/simulations/raycasting" element={<RayCasting />} />
       </Routes>
     </Router>
   );

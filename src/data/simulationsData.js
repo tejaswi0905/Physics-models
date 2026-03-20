@@ -8,22 +8,6 @@ export const simulationsData = [
     image: 'https://images.unsplash.com/photo-1542456578-1a52fc110f0b?w=600&q=80', // Beautiful placeholder
   },
   {
-    id: 'bouncing-balls',
-    title: 'Kinetic Collisions',
-    description: 'Perfect elastic collisions in a 2D space. Simulating momentum and kinetic energy conservation.',
-    tags: ['Kinematics', 'Energy', '2D'],
-    path: '/simulations/bouncing-balls',
-    image: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=600&q=80', // Beautiful placeholder
-  },
-  {
-    id: 'double-pendulum',
-    title: 'Double Pendulum',
-    description: 'Demonstrating chaotic systems and sensitivity to initial conditions through coupled pendulums.',
-    tags: ['Chaos Theory', 'Advanced Mechanics'],
-    path: '/simulations/double-pendulum',
-    image: 'https://images.unsplash.com/photo-1633519391054-0ebc5c9af7e6?w=600&q=80', // Beautiful placeholder
-  },
-  {
   id: 'elastic-collisions',
   title: 'Elastic Collisions',
   description: 'Quadtree-optimized kinetic energy conservation.',
@@ -54,5 +38,13 @@ export const simulationsData = [
   tags: ['Algorithms', 'Computational Geometry', 'Math'],
   path: '/simulations/convex-hull',
   image: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=600&q=80',
+},
+{
+  id: 'raycasting',
+  title: '2D Raycasting',
+  description: 'A 2D visibility and lighting simulation utilizing pure line-line intersection mathematics.',
+  tags: ['Optics', 'Geometry', 'Rendering'],
+  path: '/simulations/raycasting',
+  image: 'https://images.unsplash.com/photo-1550684376-efcbd6e3f031?w=600&q=80',
 }
 ];

@@ -10,6 +10,7 @@ const sharedState = {
 };
 
 const sketch = (p5) => {
+  p5.disableFriendlyErrors = true; // Optimize performance and stop background memory leaks
   let points = [];
   let hull = [];
   
@@ -51,6 +52,11 @@ const sketch = (p5) => {
 
   p5.draw = () => {
     // 0. Manual Reactive Resize
+    if (sharedState.unmounted) {
+      p5.noLoop();
+      return;
+    }
+
     if (sharedState.canvasWidth > 0 && sharedState.canvasHeight > 0) {
       if (Math.abs(p5.width - sharedState.canvasWidth) >= 2 || Math.abs(p5.height - sharedState.canvasHeight) >= 2) {
         p5.resizeCanvas(sharedState.canvasWidth, sharedState.canvasHeight);
@@ -162,6 +168,8 @@ const ConvexHullCanvas = ({ params, updateParam }) => {
   };
 
   useEffect(() => {
+    sharedState.unmounted = false;
+
     const observer = new ResizeObserver((entries) => {
       for (let entry of entries) {
         const width = Math.floor(entry.contentRect.width);
@@ -175,7 +183,10 @@ const ConvexHullCanvas = ({ params, updateParam }) => {
     });
 
     if (containerRef.current) observer.observe(containerRef.current);
-    return () => observer.disconnect();
+    return () => {
+      sharedState.unmounted = true;
+      observer.disconnect();
+    };
   }, [hasDimensions]);
 
   return (

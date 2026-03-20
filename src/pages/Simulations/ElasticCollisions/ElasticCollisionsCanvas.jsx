@@ -9,6 +9,7 @@ const sharedState = {
 };
 
 const sketch = (p5) => {
+  p5.disableFriendlyErrors = true; // Optimize performance and stop background memory leaks
   let numBalls = 10;
   let particles = [];
   const PALETTE = ['#0B6A88', '#2DC5F4', '#70327E', '#9253A1', '#A42963', '#EC015A', '#F063A4', '#F89E4F', '#FCEE21'];
@@ -31,6 +32,11 @@ const sketch = (p5) => {
   };
 
   p5.draw = () => {
+    if (sharedState.unmounted) {
+      p5.noLoop();
+      return;
+    }
+
     if (sharedState.canvasWidth > 0 && sharedState.canvasHeight > 0) {
       if (Math.abs(p5.width - sharedState.canvasWidth) >= 2 || Math.abs(p5.height - sharedState.canvasHeight) >= 2) {
         p5.resizeCanvas(sharedState.canvasWidth, sharedState.canvasHeight);
@@ -91,6 +97,8 @@ const ElasticCollisionsCanvas = ({ params }) => {
   }
 
   useEffect(() => {
+    sharedState.unmounted = false;
+
     const observer = new ResizeObserver((entries) => {
       for (let entry of entries) {
         const width = Math.floor(entry.contentRect.width);
@@ -105,7 +113,10 @@ const ElasticCollisionsCanvas = ({ params }) => {
     });
 
     if (containerRef.current) observer.observe(containerRef.current);
-    return () => observer.disconnect();
+    return () => {
+      sharedState.unmounted = true;
+      observer.disconnect();
+    };
   }, [hasDimensions]);
 
   return (

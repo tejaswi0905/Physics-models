@@ -39,25 +39,32 @@ export class Circle {
 }
 
 export class QuadTree {
-  constructor(boundary, capacity) {
-    this.boundary = boundary; this.capacity = capacity;
-    this.points = []; this.divided = false;
+  constructor(boundary, capacity, depth = 0) {
+    this.boundary = boundary; 
+    this.capacity = capacity;
+    this.depth = depth;
+    this.points = []; 
+    this.divided = false;
   }
   subdivide() {
     let { x, y, w, h } = this.boundary;
     w /= 2; h /= 2;
-    this.northeast = new QuadTree(new Rectangle(x + w, y - h, w, h), this.capacity);
-    this.northwest = new QuadTree(new Rectangle(x - w, y - h, w, h), this.capacity);
-    this.southeast = new QuadTree(new Rectangle(x + w, y + h, w, h), this.capacity);
-    this.southwest = new QuadTree(new Rectangle(x - w, y + h, w, h), this.capacity);
+    this.northeast = new QuadTree(new Rectangle(x + w, y - h, w, h), this.capacity, this.depth + 1);
+    this.northwest = new QuadTree(new Rectangle(x - w, y - h, w, h), this.capacity, this.depth + 1);
+    this.southeast = new QuadTree(new Rectangle(x + w, y + h, w, h), this.capacity, this.depth + 1);
+    this.southwest = new QuadTree(new Rectangle(x - w, y + h, w, h), this.capacity, this.depth + 1);
     this.divided = true;
   }
   insert(point) {
     if (!this.boundary.contains(point)) return false;
-    if (this.points.length < this.capacity) {
+    
+    // CRITICAL: Hard cap recursion depth to 8 to absolutely guarantee we never 
+    // memory leak the Javascript engine by allocating a million array nodes if particles exactly overlap.
+    if (this.points.length < this.capacity || this.depth > 8) {
       this.points.push(point);
       return true;
     }
+    
     if (!this.divided) this.subdivide();
     return (this.northeast.insert(point) || this.northwest.insert(point) ||
             this.southeast.insert(point) || this.southwest.insert(point));
