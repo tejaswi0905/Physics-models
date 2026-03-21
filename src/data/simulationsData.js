@@ -4,6 +4,8 @@ import sandSim from '../assets/sand_sim.png';
 import springSim from '../assets/spring_sim.png';
 import hullSim from '../assets/hull_sim.png';
 import raycastingSim from '../assets/raycasting_sim.png';
+import piSim from '../assets/pi_sim.png';
+import fourierSim from '../assets/fourier_sim.png';
 
 export const simulationsData = [
   {
@@ -60,7 +62,7 @@ export const simulationsData = [
   description: 'A physics engine demonstrating Gregory Galperin’s method of calculating the digits of Pi using perfectly elastic collisions.',
   tags: ['Kinematics', 'Mathematics', 'Elastic Collisions'],
   path: '/simulations/pi-collisions',
-  image: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?w=600&q=80',
+  image: piSim,
 },
 {
   id: 'fourier-series',
@@ -68,6 +70,6 @@ export const simulationsData = [
   description: 'Draw any continuous shape and watch the Discrete Fourier Transform reconstruct it using rotating epicycles.',
   tags: ['Mathematics', 'Signal Processing', 'Fourier Transform'],
   path: '/simulations/fourier-series',
-  image: 'https://images.unsplash.com/photo-1544324294-0a37397984f4?w=600&q=80',
+  image: fourierSim,
 }
 ];

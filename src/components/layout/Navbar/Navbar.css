@@ -120,3 +120,16 @@
 .nav-link:hover::after {
   width: 100%;
 }
+
+/* Hide Navbar smoothly when the global Theory modal is open */
+.modal-open .navbar {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateX(-50%) translateY(-150%) !important;
+}
+
+.modal-open .nav-toggle-btn {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateX(-150%) !important;
+}

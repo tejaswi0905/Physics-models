@@ -1,0 +1,127 @@
+.info-modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: modalFadeIn 0.25s ease-out;
+}
+
+.info-modal-content {
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+  animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.info-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.info-modal-header h2 {
+  margin: 0;
+  font-size: 1.6rem;
+  color: #f8fafc;
+  font-weight: 600;
+}
+
+.info-modal-close {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.info-modal-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  transform: rotate(90deg);
+}
+
+.info-modal-body {
+  padding: 2rem;
+  overflow-y: auto;
+  color: #cbd5e1;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+/* Typography styles specifically applied to the physics math content */
+.info-modal-body h3 {
+  color: #f8fafc;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.info-modal-body h3:first-child {
+  margin-top: 0;
+}
+
+.info-modal-body p {
+  margin-bottom: 1.25rem;
+}
+
+.info-modal-body p:last-child {
+  margin-bottom: 0;
+}
+
+.theory-equation {
+  display: block;
+  background: rgba(15, 23, 42, 0.5);
+  border-left: 3px solid var(--accent-primary);
+  padding: 1rem;
+  margin: 1.5rem 0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.25rem;
+  text-align: center;
+  border-radius: 0 8px 8px 0;
+  color: #f8fafc;
+  letter-spacing: 0.05em;
+  overflow-x: auto;
+}
+
+.theory-list {
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.theory-list li {
+  margin-bottom: 0.75rem;
+}
+
+.theory-list li span {
+  font-weight: 500;
+  color: #f8fafc;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(30px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}

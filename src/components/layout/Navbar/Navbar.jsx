@@ -44,7 +44,8 @@ const Navbar = () => {
           </Link>
           <div className="nav-links">
             <Link to="/" className={`nav-link ${isHome ? 'active' : ''}`}>Home</Link>
-            <Link to="/simulations" className={`nav-link ${!isHome ? 'active' : ''}`}>Simulations</Link>
+            <Link to="/simulations" className={`nav-link ${location.pathname.startsWith('/simulations') ? 'active' : ''}`}>Simulations</Link>
+            <Link to="/docs" className={`nav-link ${location.pathname.startsWith('/docs') ? 'active' : ''}`}>Docs</Link>
             <a href="https://github.com/tejaswi0905/Physics-models" target="_blank" rel="noopener noreferrer" className="nav-link">
               GitHub
             </a>

@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
+import './App.css';
 
 // Dynamically lazy-loaded routes split the JavaScript bundle, radically accelerating application load-times!
 const Simulations = lazy(() => import('./pages/Simulations/Simulations'));
@@ -12,8 +13,7 @@ const ConvexHull = lazy(() => import('./pages/Simulations/ConvexHull/ConvexHull'
 const RayCasting = lazy(() => import('./pages/Simulations/RayCasting/RayCasting'));
 const PiCollisions = lazy(() => import('./pages/Simulations/PiCollisions/PiCollisions'));
 const FourierSeries = lazy(() => import('./pages/Simulations/FourierSeries/FourierSeries'));
-
-import './App.css';
+const Docs = lazy(() => import('./pages/Docs/Docs'));
 
 // Sophisticated rendering fallback while the physics engines natively compile
 const PhysicsEngineLoader = () => (
@@ -39,6 +39,7 @@ function App() {
           <Route path="/simulations/raycasting" element={<RayCasting />} />
           <Route path="/simulations/pi-collisions" element={<PiCollisions />} />
           <Route path="/simulations/fourier-series" element={<FourierSeries />} />
+          <Route path="/docs" element={<Docs />} />
         </Routes>
       </Suspense>
     </Router>

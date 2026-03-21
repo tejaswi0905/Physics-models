@@ -25,6 +25,9 @@ const HeroSection = () => {
             <Link to="/simulations">
               <Button variant="primary">Start Exploring</Button>
             </Link>
+            <Link to="/docs" style={{ marginLeft: '1rem' }}>
+              <Button variant="secondary">Learn to add models</Button>
+            </Link>
           </div>
         </div>
 
