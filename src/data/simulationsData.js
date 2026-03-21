@@ -61,5 +61,13 @@ export const simulationsData = [
   tags: ['Kinematics', 'Mathematics', 'Elastic Collisions'],
   path: '/simulations/pi-collisions',
   image: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?w=600&q=80',
+},
+{
+  id: 'fourier-series',
+  title: 'Fourier Epicycles (Drawing)',
+  description: 'Draw any continuous shape and watch the Discrete Fourier Transform reconstruct it using rotating epicycles.',
+  tags: ['Mathematics', 'Signal Processing', 'Fourier Transform'],
+  path: '/simulations/fourier-series',
+  image: 'https://images.unsplash.com/photo-1544324294-0a37397984f4?w=600&q=80',
 }
 ];

@@ -73,6 +73,7 @@ const sketch = (p5) => {
   };
 
   p5.draw = () => {
+    if (document.hidden) return;
     // 0. Aggressive Memory Leak Murder-Switch
     // If React unmounts this component but the p5-wrapper orphans the instance, shut it down.
     if (sharedState.unmounted) {

@@ -7,7 +7,8 @@ const sharedState = {
   status: 'idle',
   canvasWidth: 0,
   canvasHeight: 0,
-  updateReact: null
+  updateReact: null,
+  unmounted: false
 };
 
 class Block {
@@ -84,6 +85,11 @@ const sketch = (p5) => {
   };
 
   p5.draw = () => {
+    if (document.hidden) return;
+    if (sharedState.unmounted) {
+      p5.noLoop();
+      return;
+    }
     // 1. Handle Resizes
     if (sharedState.canvasWidth > 0 && sharedState.canvasHeight > 0) {
       if (Math.abs(p5.width - sharedState.canvasWidth) >= 2 || Math.abs(p5.height - sharedState.canvasHeight) >= 2) {
@@ -203,6 +209,7 @@ const PiCollisionsCanvas = ({ params, updateParam }) => {
   };
 
   useEffect(() => {
+    sharedState.unmounted = false;
     const observer = new ResizeObserver((entries) => {
       for (let entry of entries) {
         const width = Math.floor(entry.contentRect.width);
@@ -216,7 +223,10 @@ const PiCollisionsCanvas = ({ params, updateParam }) => {
     });
 
     if (containerRef.current) observer.observe(containerRef.current);
-    return () => observer.disconnect();
+    return () => {
+      sharedState.unmounted = true;
+      observer.disconnect();
+    };
   }, [hasDimensions]);
 
   return (

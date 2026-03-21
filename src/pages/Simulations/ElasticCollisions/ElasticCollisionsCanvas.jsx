@@ -32,6 +32,7 @@ const sketch = (p5) => {
   };
 
   p5.draw = () => {
+    if (document.hidden) return;
     if (sharedState.unmounted) {
       p5.noLoop();
       return;

@@ -51,6 +51,7 @@ const sketch = (p5) => {
   };
 
   p5.draw = () => {
+    if (document.hidden) return;
     // 0. Manual Reactive Resize
     if (sharedState.unmounted) {
       p5.noLoop();
