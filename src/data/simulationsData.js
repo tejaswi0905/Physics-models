@@ -53,5 +53,13 @@ export const simulationsData = [
   tags: ['Optics', 'Geometry', 'Rendering'],
   path: '/simulations/raycasting',
   image: raycastingSim,
+},
+{
+  id: 'pi-collisions',
+  title: 'Calculating Pi via Collisions',
+  description: 'A physics engine demonstrating Gregory Galperin’s method of calculating the digits of Pi using perfectly elastic collisions.',
+  tags: ['Kinematics', 'Mathematics', 'Elastic Collisions'],
+  path: '/simulations/pi-collisions',
+  image: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?w=600&q=80',
 }
 ];

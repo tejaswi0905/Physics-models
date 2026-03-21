@@ -17,7 +17,7 @@ const sketch = (p5) => {
   let bobX = 0, bobY = 0;
   let vx = 0, vy = 0;
   let isDragging = false;
-  let bobRadius = 30;
+  let bobHalfSize = 30;
 
   p5.setup = () => {
     p5.createCanvas(800, 600);
@@ -50,36 +50,24 @@ const sketch = (p5) => {
     const dtScale = Math.min(p5.deltaTime / (1000/60) || 1, 3); 
 
     if (isDragging) {
-      bobX = p5.mouseX;
+      bobX = anchorX; // Lock to path
       bobY = p5.mouseY;
       vx = 0;
       vy = 0;
     } else {
-      let dx = bobX - anchorX;
-      let dy = bobY - anchorY;
-      let distance = Math.sqrt(dx * dx + dy * dy);
-      
-      if (distance > 0) {
-        let stretch = distance - sharedState.restLength;
-        let forceMag = -sharedState.stiffness * stretch;
-        
-        let fx = (dx / distance) * forceMag;
-        let fy = (dy / distance) * forceMag;
-        
-        vx += fx * dtScale;
-        vy += (fy + sharedState.gravity) * dtScale;
-      }
+      // 1D Spring physics purely on Y axis
+      let springForceY = -sharedState.stiffness * (bobY - anchorY - sharedState.restLength);
+      vy += (springForceY + sharedState.gravity) * dtScale;
 
       let activeDamping = sharedState.isIdeal ? 1.0 : sharedState.damping;
-      vx *= activeDamping;
       vy *= activeDamping;
-      bobX += vx * dtScale;
       bobY += vy * dtScale;
+      bobX = anchorX; // Keep it on the vertical path
     }
 
-    let dxMouse = p5.mouseX - bobX;
-    let dyMouse = p5.mouseY - bobY;
-    let isHovering = (dxMouse * dxMouse + dyMouse * dyMouse) < (bobRadius * bobRadius);
+    let dxMouse = Math.abs(p5.mouseX - bobX);
+    let dyMouse = Math.abs(p5.mouseY - bobY);
+    let isHovering = (dxMouse < bobHalfSize) && (dyMouse < bobHalfSize);
 
     if (isDragging) p5.cursor('grabbing');
     else if (isHovering) p5.cursor('grab');
@@ -87,26 +75,51 @@ const sketch = (p5) => {
 
     p5.strokeWeight(3);
     p5.stroke('#a1a1aa');
-    p5.line(anchorX, anchorY, bobX, bobY);
+    p5.noFill();
+    p5.beginShape();
+    
+    let dyDist = bobY - anchorY;
+    let distance = Math.abs(dyDist);
+    
+    p5.vertex(anchorX, anchorY);
+    if (distance > 40) {
+      let signY = dyDist >= 0 ? 1 : -1;
+      let coils = 12;
+      let springWidth = 15;
+      
+      p5.vertex(anchorX, anchorY + 20 * signY);
+      let step = (distance - 40) / coils;
+      for (let i = 0; i <= coils; i += 0.5) {
+        let t = 20 + i * step;
+        let side = (i % 1 === 0) ? 1 : -1;
+        if (i === 0 || i === coils) side = 0;
+        
+        p5.vertex(anchorX + springWidth * side, anchorY + t * signY);
+      }
+      p5.vertex(anchorX, bobY - 20 * signY);
+    }
+    p5.vertex(bobX, bobY);
+    p5.endShape();
 
     p5.noStroke();
     p5.fill('#8b5cf6');
     p5.circle(anchorX, anchorY, 16);
 
+    p5.rectMode(p5.CENTER);
     p5.fill(139, 92, 246, isHovering || isDragging ? 80 : 30);
-    p5.circle(bobX, bobY, bobRadius * 2.5);
+    p5.rect(bobX, bobY, bobHalfSize * 2.5, bobHalfSize * 2.5, 8);
 
     p5.fill('#2dd4bf');
     if (isHovering || isDragging) p5.stroke(255);
     else p5.noStroke();
     p5.strokeWeight(2);
-    p5.circle(bobX, bobY, bobRadius * 2);
+    p5.rect(bobX, bobY, bobHalfSize * 2, bobHalfSize * 2, 8);
   };
 
   p5.mousePressed = () => {
-    let dx = p5.mouseX - bobX;
-    let dy = p5.mouseY - bobY;
-    if ((dx * dx + dy * dy) < (bobRadius * bobRadius)) {
+    let dxMouseClick = Math.abs(p5.mouseX - bobX);
+    let dyMouseClick = Math.abs(p5.mouseY - bobY);
+    if ((dxMouseClick < bobHalfSize) && (dyMouseClick < bobHalfSize)) {
       isDragging = true;
     }
   };
