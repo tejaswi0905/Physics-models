@@ -1,10 +1,11 @@
 import React from 'react';
 import Navbar from './Navbar/Navbar';
+import VectorField from './VectorField';
 
 const Layout = ({ children }) => {
   return (
     <div className="app-container">
-      <div className="app-bg-glow"></div>
+      <VectorField />
       <Navbar />
       <main className="main-content">
         {children}

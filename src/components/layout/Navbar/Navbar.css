@@ -1,14 +1,21 @@
 .navbar {
   position: fixed;
-  top: 1rem;
+  top: 1.5rem;
   left: 50%;
-  width: calc(100% - 2rem);
+  transform: translateX(-50%);
+  width: calc(100% - 3rem);
   max-width: var(--max-width);
-  height: 60px;
+  height: 64px;
   z-index: 100;
   border-radius: 100px;
-  padding: 0;
-  transition: transform 0.6s cubic-bezier(0.8, 0, 0.2, 1), opacity 0.5s ease;
+  padding: 0 2rem;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  color: var(--text-primary);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
 }
 
 .navbar-visible {
@@ -18,7 +25,7 @@
 }
 
 .navbar-hidden {
-  transform: translateX(100vw);
+  transform: translateX(-50%) translateY(-150%);
   opacity: 0;
   pointer-events: none;
 }
@@ -83,6 +90,7 @@
   color: var(--text-secondary);
   position: relative;
   padding: 0.5rem 0;
+  transition: color var(--transition-fast);
 }
 
 .nav-link:hover {
