@@ -26,7 +26,8 @@ const SimulationWrapper = ({
   }, []);
 
   return (
-    <div className="sim-wrapper-container">
+    <div className="sim-page-bleed dark-theme">
+      <div className="sim-wrapper-container">
       <div className="sim-header">
         <div>
           <h1 className="sim-title text-gradient">{title}</h1>
@@ -84,6 +85,7 @@ const SimulationWrapper = ({
           </div>
         </Card>
       </div>
+    </div>
     </div>
   );
 };

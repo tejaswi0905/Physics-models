@@ -54,3 +54,25 @@
   color: var(--text-primary);
   background: rgba(255, 255, 255, 0.05);
 }
+
+/* Ensure buttons in Simulation Wrapper adapt beautifully avoiding the Opaque White glitch */
+.dark-theme .btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: #f8fafc;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.dark-theme .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #f8fafc;
+}
+
+.dark-theme .btn-ghost {
+  color: #94a3b8;
+}
+
+.dark-theme .btn-ghost:hover {
+  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.1);
+}
