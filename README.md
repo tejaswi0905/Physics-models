@@ -1,9 +1,10 @@
 # Physics Models Engine
 🔴 **[Live Demo: physics-models.vercel.app](https://physics-models.vercel.app/)**
 
-An immersive, high-performance web application merging deep algorithmic `p5.js` physics simulations with a pristine, state-driven React.js architecture.
+<img width="271" height="211" alt="image" src="https://github.com/user-attachments/assets/d42cda5b-caab-4ab7-8bfa-92102a911d0a" />
 
-[![Physics Engine Demo](https://images.unsplash.com/photo-1633507041078-e363dbe005cb?w=1200&q=80)](https://physics-models.vercel.app/)
+
+An immersive, high-performance web application merging deep algorithmic `p5.js` physics simulations with a pristine, state-driven React.js architecture.
 
 ## 🧪 The Physics & Algorithm Library
 
