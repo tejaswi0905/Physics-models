@@ -25,9 +25,24 @@ const HeroSection = () => {
             <Link to="/simulations">
               <Button variant="primary">Start Exploring</Button>
             </Link>
-            <Link to="/docs" style={{ marginLeft: '1rem' }}>
+            <Link to="/docs">
               <Button variant="secondary">Learn to add models</Button>
             </Link>
+          </div>
+          
+          <div className="hero-thanks" style={{
+            marginTop: 'clamp(1.5rem, 4vh, 3rem)',
+            padding: '1.25rem',
+            borderRadius: '16px',
+            background: 'var(--glass-bg)',
+            border: '1px solid var(--glass-border)',
+            boxShadow: 'var(--glass-shadow)',
+            maxWidth: '90%',
+            animation: 'fadeIn 1s ease-out 0.6s both'
+          }}>
+            <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              <span style={{ color: 'var(--text-primary)', fontWeight: '600' }}>🚂 Special Thanks:</span> This interactive physics engine was heavily inspired by the phenomenal <strong style={{ color: 'var(--accent-secondary)' }}>p5.js</strong> teachings of <a href="https://thecodingtrain.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-primary)', textDecoration: 'underline', textDecorationColor: 'var(--accent-primary)', textUnderlineOffset: '4px', fontWeight: '700', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = 'var(--accent-secondary)'} onMouseOut={(e) => e.target.style.color = 'var(--text-primary)'}>The Coding Train</a>. Highly recommended for learning to code creatively!
+            </p>
           </div>
         </div>
 

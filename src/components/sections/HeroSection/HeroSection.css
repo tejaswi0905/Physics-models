@@ -1,12 +1,14 @@
 .hero {
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: center; /* Perfectly centers content dynamically on all screens */
   position: relative;
-  overflow: hidden;
   background: transparent;
+  
+  /* The navbar offset */
   margin-top: calc(-1 * var(--nav-height));
   padding-top: var(--nav-height);
+  padding-bottom: 2rem;
 }
 
 
@@ -14,19 +16,86 @@
 .hero-grid {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
-  gap: 5rem;
-  align-items: center;
+  gap: 3rem;
   width: 100%;
   position: relative;
   z-index: 10;
+  
+  /* Guarantee the gap from the navbar is beautifully wide but geometrically viable */
+  /* Dynamically shrinks from 5rem down to 2rem strictly depending on laptop screen height to mathematically prevent native scrolling */
+  padding-top: clamp(2.5rem, 8vh, 5rem) !important;
+  padding-bottom: clamp(1rem, 3vh, 2rem) !important;
 }
 
 @media (max-width: 968px) {
   .hero-grid {
     grid-template-columns: 1fr;
     gap: 3rem;
+    padding-top: 4rem;
+    padding-bottom: 3rem;
+  }
+  
+  .hero-content {
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: clamp(2.2rem, 8vw, 3rem);
+    text-align: center;
+  }
+
+  .hero-subtitle {
+    text-align: center;
+    margin: 0 auto 2.5rem auto;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .featured-heading {
+    text-align: center;
+    padding-left: 0;
+  }
+  
+  .hero-featured {
+    margin-top: 0; /* Reset offset entirely on mobile grids */
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-grid {
+    gap: 2.5rem;
     padding-top: 2rem;
-    padding-bottom: 4rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .hero-actions a {
+    width: 100%;
+  }
+
+  .hero-actions button {
+    width: 100%;
+  }
+
+  .featured-card {
+    padding: 0.75rem;
+    gap: 1rem;
+  }
+
+  .card-image-wrap {
+    width: 60px;
+    height: 60px;
+  }
+
+  .card-info h4 {
+    font-size: 1.1rem;
   }
 }
 
@@ -48,7 +117,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: clamp(1rem, 2.5vh, 2rem);
   border: 1px solid rgba(37, 99, 235, 0.15);
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.05);
 }
@@ -62,17 +131,17 @@
 }
 
 .hero-title {
-  font-size: clamp(3rem, 5vw, 4.8rem);
+  font-size: clamp(2.5rem, 4vw, 4rem);
   color: var(--text-primary);
-  margin-bottom: 1.5rem;
+  margin-bottom: clamp(0.5rem, 1.5vh, 1rem);
   letter-spacing: -0.04em;
 }
 
 .hero-subtitle {
-  font-size: clamp(1.15rem, 2vw, 1.25rem);
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
   color: var(--text-secondary);
   max-width: 520px;
-  margin-bottom: 2.5rem;
+  margin-bottom: clamp(1.5rem, 3vh, 2rem);
   line-height: 1.6;
 }
 
@@ -104,14 +173,14 @@
 .featured-list {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem; /* Compact card stacking */
 }
 
 .featured-card {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  padding: 1rem 1.5rem 1rem 1rem;
+  gap: 1.25rem;
+  padding: 0.75rem 1.25rem 0.75rem 0.75rem; /* Reduced internal padding */
   background: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
@@ -131,9 +200,9 @@
 }
 
 .card-image-wrap {
-  width: 88px;
-  height: 88px;
-  border-radius: 14px;
+  width: 72px; /* Smaller thumbnail metric */
+  height: 72px;
+  border-radius: 12px;
   overflow: hidden;
   flex-shrink: 0;
   background: var(--bg-tertiary);

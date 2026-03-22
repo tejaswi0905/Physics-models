@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import './App.css';
 
-// Dynamically lazy-loaded routes split the JavaScript bundle, radically accelerating application load-times!
 const Simulations = lazy(() => import('./pages/Simulations/Simulations'));
 const SimplePendulum = lazy(() => import('./pages/Simulations/SimplePendulum/SimplePendulum'));
 const ElasticCollisions = lazy(() => import('./pages/Simulations/ElasticCollisions/ElasticCollisions'));
