@@ -11,9 +11,6 @@ const HeroSection = () => {
         
         {/* Left: Text Content */}
         <div className="hero-content">
-          <div className="hero-badge">
-            <span className="bullet"></span> v2.0 Premium Experience
-          </div>
           <h1 className="hero-title">
             Interactive <br/>
             <span className="text-gradient">Physics Models</span>
