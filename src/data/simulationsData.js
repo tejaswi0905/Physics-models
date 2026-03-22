@@ -3,9 +3,9 @@ import collisionsSim from '../assets/collisions_sim.png';
 import sandSim from '../assets/sand_sim.png';
 import springSim from '../assets/spring_sim.png';
 import hullSim from '../assets/hull_sim.png';
-import raycastingSim from '../assets/raycasting_sim.png';
-import piSim from '../assets/pi_sim.png';
-import fourierSim from '../assets/fourier_sim.png';
+import raycastingSim from '../assets/raycasting_cartoon.png';
+import piSim from '../assets/pi_cartoon.png';
+import fourierSim from '../assets/fourier_cartoon.png';
 
 export const simulationsData = [
   {
