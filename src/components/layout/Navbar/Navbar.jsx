@@ -8,6 +8,12 @@ const Navbar = () => {
   
   const [isScrolled, setIsScrolled] = useState(false);
   const [isForcedOpen, setIsForcedOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Close menus instantly on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,7 +48,18 @@ const Navbar = () => {
           <Link to="/" className="nav-brand">
             <span className="text-gradient font-display logo-text">PhysicsModels</span>
           </Link>
-          <div className="nav-links">
+          
+          <button 
+            className={`mobile-menu-btn ${isMobileMenuOpen ? 'active' : ''}`}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle Mobile Menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          <div className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
             <Link to="/" className={`nav-link ${isHome ? 'active' : ''}`}>Home</Link>
             <Link to="/simulations" className={`nav-link ${location.pathname.startsWith('/simulations') ? 'active' : ''}`}>Simulations</Link>
             <Link to="/docs" className={`nav-link ${location.pathname.startsWith('/docs') ? 'active' : ''}`}>Docs</Link>
